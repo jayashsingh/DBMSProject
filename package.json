@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jayashsingh/DBMSProject/issues"
   },
-  "homepage": "https://github.com/jayashsingh/DBMSProject#readme"
+  "homepage": "https://github.com/jayashsingh/DBMSProject#readme",
+  "dependencies": {
+    "nodemon": "^2.0.6"
+  }
 }
