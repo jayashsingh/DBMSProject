@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Register</title>
-  </head>
+<head>
+  <title>JUTR Jobs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
   <body>
-    <h1>Register for Job Site</h1>
-    <form class="" action="/LoginInfo" method="post">
-      <label for="UsernameRegister">Enter Username</label>
-      <input type="text" id="UsernameRegister" name="UsernameRegister">
-      <label for="PasswordRegister">Enter Password</label>
-      <input type="password" id="PasswordRegister" name="PasswordRegister"><br>
-      <input type="submit" name="SubmitRegister" value="Register">
-    </form>
+    <div class="container">
+      <h1>Register for Job Site</h1>
+      <form class="" action="/LoginInfo" method="post">
+        <div class="form-group">
+          <label for="UsernameRegister">Enter Username</label>
+          <input type="text" id="UsernameRegister" class="form-control" name="UsernameRegister">
+        </div>
+        <div class="form-group">
+          <label for="PasswordRegister">Enter Password</label>
+          <input type="password" id="PasswordRegister" class="form-control" name="PasswordRegister">
+        </div>
+        <button type="submit" name="SubmitRegister" value="Register" class="btn btn-defualt">Register</button>
+      </form>
+    </div>
   </body>
 </html>
