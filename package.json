@@ -17,9 +17,13 @@
   },
   "homepage": "https://github.com/jayashsingh/DBMSProject#readme",
   "dependencies": {
+    "@popperjs/core": "^2.5.4",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
     "express": "^4.17.1",
+    "jquery": "^3.5.1",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "popper.js": "^1.16.1"
   }
 }
