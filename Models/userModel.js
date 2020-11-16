@@ -7,16 +7,19 @@ const User = function User(user) {
 };
 
 User.create = (newUser, result) => {
-  sql.query("INSERT INTO LoginInfo SET ?", newUser, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+  //Check if user exists already
 
-    console.log("created customer: ", { id: res.insertId, ...newUser });
-    result(null, { id: res.insertId, ...newUser });
-  });
+      sql.query("INSERT INTO LoginInfo SET ?", newUser, (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          result(err, null);
+          return;
+        }
+
+        console.log("created customer: ", { id: res.insertId, ...newUser });
+        result(null, { id: res.insertId, ...newUser });
+      });
+
 };
 
 module.exports = User;
