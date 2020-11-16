@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const dbConfig = require("../Config/db.config.js");
+const dbConfig = require("../config/db.config.js");
 
 // Create a connection to the database
 const connection = mysql.createConnection({
@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 
 // open the MySQL connection
 connection.connect(error => {
-  if (error) throw error;
+  if (error) console.log("error wiht db");
   console.log("Successfully connected to the database.");
 });
 
