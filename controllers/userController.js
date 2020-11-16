@@ -12,10 +12,14 @@ exports.create = (req, res) => {
   console.log(req.body.UsernameRegister);
   //Check if user exists already
   sql.query("SELECT Username FROM LoginInfo WHERE Username = '"+req.body.UsernameRegister+"'",function(err,res1,field){
-    console.log("lengthazz" + res1.length);
+    if (err)
+    {
+      console.log("lengthazz" + res1.length);
+    }
+
     if(res1.length>0)
     {
-      pop.alert('User with that userame exists already!');
+       res.render("register",{layout:false, message: 'User exists with that username!'});
       //res.redirect('/register.html');
     }
     else {
@@ -35,9 +39,7 @@ exports.create = (req, res) => {
         else{
         //res.send(data);
         console.log("Data was stored");
-        alert.alert("Registreed");
-        //popup.alert({content:'Registration successful! You may now login!'});
-        res.redirect('/');
+        res.render("login",{layout:false, message: 'Congrats, your account was created!'});
       }
       });
     }

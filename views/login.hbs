@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body>
     <div class="jumbotron text-center">
@@ -27,7 +29,14 @@
         </form>
 
         <h3>Dont have an account?</h3>
-        <a href="./register.html"><button class="btn btn-defualt">Register here!</button></a>
+        <a href="./register"><button class="btn btn-defualt">Register here!</button></a>
+
+        {{#if message}}
+          <br><div class="alert alert-danger alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{message}}
+          </div>
+        {{/if}}
     </div>
   </body>
 </html>
