@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
             <label for="Password">Enter Password</label>
-            <input type="password" class="form-control" id="Password" name="Password">
+            <input type="password" class="form-control" id="Password" name="Password" required>
           </div>
           <button type="submit" class="btn btn-defualt">Login</button>
         </form>
@@ -32,7 +32,7 @@
         <a href="./register"><button class="btn btn-defualt">Register here!</button></a>
 
         {{#if message}}
-          <br><div class="alert alert-danger alert-dismissible fade in">
+          <br><div class="alert alert-success alert-dismissible fade in">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             {{message}}
           </div>

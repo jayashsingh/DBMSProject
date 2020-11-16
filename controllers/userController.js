@@ -1,6 +1,6 @@
 const User = require("../models/userModel.js");
-const pop = require('node-popup');
 const sql = require("../models/db.js")
+const bcrypt = require("bcrypt");
 // Create and Save a new Customer
 exports.create = (req, res) => {
   // Validate request
@@ -23,25 +23,34 @@ exports.create = (req, res) => {
       //res.redirect('/register.html');
     }
     else {
-      // Create a Customer
-      const user = new User({
-        Username: req.body.UsernameRegister,
-        Password: req.body.PasswordRegister
-      });
-
-      // Save Customer in the database
-      User.create(user, (err, data) => {
+      bcrypt.hash(req.body.PasswordRegister, 10, (err, hash)=>{
         if (err)
-          res.status(500).send({
-            message:
-              err.message || "Some error occurred while creating the User."
+        {
+          console.log(err)
+        }
+        else {
+          const user = new User({
+            Username: req.body.UsernameRegister,
+            Password: hash
           });
-        else{
-        //res.send(data);
-        console.log("Data was stored");
-        res.render("login",{layout:false, message: 'Congrats, your account was created!'});
-      }
-      });
+
+          // Save Customer in the database
+          User.create(user, (err, data) => {
+            if (err)
+              res.status(500).send({
+                message:
+                  err.message || "Some error occurred while creating the User."
+              });
+            else{
+            //res.send(data);
+            console.log("Data was stored");
+            res.render("login",{layout:false, message: 'Congrats, your account was created!'});
+          }
+          });
+        }
+      })
+      // Create a Customer
+
     }
   });
 
