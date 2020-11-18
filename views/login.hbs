@@ -16,25 +16,31 @@
 
     <div class="container">
         <h2>Login here!</h2>
-        <form class="" action="index.html" method="post">
+        <form class="" action="login_Auth" method="post">
           <div class="form-group">
             <label for="Username">Enter username:</label>
-            <input type="text" class="form-control" id="Username" name="Username">
+            <input type="text" class="form-control" id="Username" name="Username" required>
           </div>
           <div class="form-group">
             <label for="Password">Enter Password</label>
-            <input type="password" class="form-control" id="Password" name="Password" required>
+            <input type="password" class="form-control" id="Password" name="Password"  required>
           </div>
-          <button type="submit" class="btn btn-defualt">Login</button>
+          <button type="submit" class="btn btn-dark">Login</button>
         </form>
 
         <h3>Dont have an account?</h3>
-        <a href="./register"><button class="btn btn-defualt">Register here!</button></a>
+        <a href="./register"><button class="btn btn-dark">Register here!</button></a>
 
         {{#if message}}
           <br><div class="alert alert-success alert-dismissible fade in">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             {{message}}
+            </div>
+        {{/if}}
+        {{#if failureMessage}}
+          <br><div class="alert alert-danger alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{failureMessage}}
           </div>
         {{/if}}
     </div>

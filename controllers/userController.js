@@ -34,6 +34,7 @@ exports.create = (req, res) => {
             Password: hash
           });
 
+          console.log('userregister'+user);
           // Save Customer in the database
           User.create(user, (err, data) => {
             if (err)
@@ -44,7 +45,7 @@ exports.create = (req, res) => {
             else{
             //res.send(data);
             console.log("Data was stored");
-            res.render("login",{layout:false, message: 'Congrats, your account was created!'});
+            res.render("editProfile",{layout:false, message: 'Congrats, your account was created!'});
           }
           });
         }
@@ -55,3 +56,44 @@ exports.create = (req, res) => {
   });
 
 };
+
+exports.login = (req, res) => {
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+  else {
+    const user = new User({
+      Username: req.body.Username,
+      Password: req.body.Password
+    });
+    console.log("userrrr: "+user);
+    console.log("userrrr: "+req.body.Username);
+    console.log("userrrr: "+req.body.Password);
+    User.login(user, (err, data)=>{
+      if (err)
+      {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while logging in the User."
+        });
+      }
+      else if (data=='failed')
+      {
+        console.log("User not logged in");
+        res.render("login",{layout:false, failureMessage: 'Email or Password incorrect! Please try again.'});
+      }
+      else {
+        console.log("data"+data.token);
+        const userToken=data.token;
+        res.cookie('user',userToken,{maxAge:3600000,httpOnly:true}).redirect('/Main');
+      }
+
+
+    });
+  }
+
+
+
+}
