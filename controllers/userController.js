@@ -1,6 +1,7 @@
 const User = require("../models/userModel.js");
 const sql = require("../models/db.js")
 const bcrypt = require("bcrypt");
+const jwt =require("jsonwebtoken");
 // Create and Save a new Customer
 exports.create = (req, res) => {
   // Validate request
@@ -45,7 +46,7 @@ exports.create = (req, res) => {
             else{
             //res.send(data);
             console.log("Data was stored");
-            res.render("editProfile",{layout:false, message: 'Congrats, your account was created!'});
+            res.render("login",{layout:false, message: 'Congrats, your account was created!'});
           }
           });
         }
@@ -58,6 +59,7 @@ exports.create = (req, res) => {
 };
 
 exports.login = (req, res) => {
+  console.log("TEST"+req.body)
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -87,7 +89,25 @@ exports.login = (req, res) => {
       else {
         console.log("data"+data.token);
         const userToken=data.token;
-        res.cookie('user',userToken,{maxAge:3600000,httpOnly:true}).redirect('/Main');
+        const token_username=jwt.decode(userToken).Username;
+        res.cookie('user',userToken,{maxAge:3600000,httpOnly:true})
+        sql.query("SELECT * FROM Profile WHERE Username= ?",token_username, (err,results) =>{
+          if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+          }
+          else {
+            if(results.length<1)
+            {
+              res.redirect('/editProfile');
+            }
+            else {
+              res.redirect('/Main');
+            }
+          }
+        })
+
       }
 
 
