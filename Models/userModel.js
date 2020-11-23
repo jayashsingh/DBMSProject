@@ -34,18 +34,30 @@ User.login = (user, result) => {
       return;
     }
     else {
-      console.log(results);
-      if(results.length<1 || !(bcrypt.compare(user.Password, results[0].Password)))
+      console.log("AAAAAAA"+results[0].Password+"   "+user.Password);
+      console.log("BBBBb"+(bcrypt.compare(user.Password, results[0].Password)));
+      if(results.length<1)
       {
         console.log("it ran through here");
         result(null, 'failed');
         return;
       }
       else {
-        console.log("it ran through here too");
-        const userToken= jwt.sign({Username: user.Username},jwtConfig.JWTPASSWORD,{expiresIn:"1h"});
-        console.log("tokenaazzz "+userToken);
-        result(null, { token: userToken});
+        bcrypt.compare(user.Password, results[0].Password,(error,dataa)=>{
+          console.log("ASDASD"+dataa)
+          if(dataa)
+          {
+            console.log("it ran through here too");
+            const userToken= jwt.sign({Username: user.Username},jwtConfig.JWTPASSWORD,{expiresIn:"1h"});
+            console.log("tokenaazzz "+userToken);
+            result(null, { token: userToken});
+          }
+          else {
+            console.log("it ran through 123123asdasdfsagds");
+            result(null, 'failed');
+            return;
+          }
+        })
       }
     }
   })

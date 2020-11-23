@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JUTR Jobs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+      <img src="/pic.png",alt="poopoo" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      JUTR
+    </a>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active"><class="nav-link" href="./Main"> Home</a></li>
+          <li class="nav-item active"><class="nav-link" href="./Company"> Companys</a></li>
+          <li><a href="./JobListing"><span class="glyphicon glyphicon-lock"></span> Job Listings</a> </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="./Profile"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="card-columns">
+        {{#if results}}
+          {{#each results}}
+            <div class="card bg-info">
+              <div class="card-header"><h2>{{this.Name}}</h2></div>
+              <div class="card-body">
+                <h5 class="card-title">{{this.Description}}</h5>
+                <p class="card-text">Field of work: {{this.WorkField}}</p>
+                <p class="card-text">Location: {{this.Address}}</p>
+                <p class="card-text">Phone: {{this.Phone}}</p>
+                <p class="card-text">Email: {{this.Email}}</p>
+              </div>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
+    </div>
+  </body>
+</html>

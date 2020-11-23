@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JUTR Jobs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+      <img src="/pic.png",alt="poopoo" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      JUTR
+    </a>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active"><class="nav-link" href="./Main"> Home</a></li>
+          <li class="nav-item active"><class="nav-link" href="./Company"> Companys</a></li>
+          <li class="nav-item active"><class="nav-link" href=""> Job Listings</a> </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="./Profile"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
+      </div>
+    </nav>
+    <form class="" action="./JobListing" method="post">
+      <input type="radio" id="fulltime" name="typeOfWork" value="fulltime">
+      <label for="fulltime">Fulltime</label><br>
+      <input type="radio" id="showAll" name="typeOfWork" value="showAll">
+      <label for="showAll">Show All</label><br>
+      <input type="radio" id="parttime" name="typeOfWork" value="partime">
+      <label for="parttime">Parttime</label><br>
+    </form>
+    <div class="container">
+      <div class="card-columns">
+        {{#if results}}
+          {{#each results}}
+
+            <div class="card bg-info">
+              <div class="card-header"><h2>{{lookup ../companyNames @index}}</h2></div>
+              <div class="card-body">
+                <h5 class="card-title">{{this.EmploymentType}}</h5>
+                <p class="card-text">Field of work: {{this.Description}}</p>
+                <p class="card-text">Location: {{this.PayRange}}</p>
+                <p class="card-text">Phone: {{this.SkillRequirements}}</p>
+                <p class="card-text">Experience Requirements: {{this.ExperienceRequirements}}</p>
+                <p class="card-text">Education Requirements: {{this.EducationRequirements}}</p>
+              </div>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
+    </div>
+  </body>
+</html>
