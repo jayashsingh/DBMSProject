@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>JUTR Jobs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h1>Profile Information</h1>
+      <p>Jayash is cute</p>
+    </div>
+    <div class="container">
+        <h2>Profile</h2>
+        <form class="" action="profileUpdate" method="post">
+          <div class="form-group">
+            <label for="FirstName">Enter your first name:</label>
+            <input type="text" value="{{fname}}" class="form-control" id="FirstName" name="FirstName" pattern="[A-Za-z]*" required>
+          </div>
+          <div class="form-group">
+            <label for="LastName">Enter your last name:</label>
+            <input type="text" value="{{lname}}"class="form-control" id="LastName" name="LastName" pattern="[A-Za-z]*" required>
+          </div>
+          <div class="form-group">
+            <label for="Email">Enter your email:</label>
+            <input type="email" value="{{email}}"class="form-control" id="Email" name="Email" required>
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Enter Phone Number: </label>
+            <input type="phoneNumber" value="{{pnum}}"class="form-control" id="phoneNumber" name="phoneNumber" required>
+          </div>
+          <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+  </body>
+</html>

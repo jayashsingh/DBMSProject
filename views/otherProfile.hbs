@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>JUTR Jobs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./Main">
+    <img src="/jutr_logo_final.png",alt="poopoo" width="55" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+  </a>
+  <div class="navbar-nav">
+    <a href="./Main" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="./Companys" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-envelope"></i> Companies</a>
+    <a href="./JobListing" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-bars"></i> Job Listings</a>
+    <a href="./profileList" class="nav-item nav-link text-white bg-dark"><i class="fas fa-file"></i> Profiles</a>
+  </div>
+  <div class="navbar-nav ml-auto">
+          <a href="./Profile" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-user"></i>My Profile</a>
+          <a href="./Logout" class="nav-item nav-link text-white bg-dark"><i class='fas fa-sign-out-alt'></i> Logout</a>
+      </div>
+  </nav>
+  <br>
+      <a href="./profileList" class="btn btn-sm btn-outline-dark float-right">Back</a>
+      <div class="container text-center">
+
+        {{#if profile}}
+          {{#each profile}}
+          <div class="container-sm">
+            <div class="jumbotron text-center bg-dark text-white p-3 mb-1 rounded-12">
+              <h1>{{this.FirstName}} {{this.LastName}}</h1>
+              <p><b>Email: </b>{{this.Email}}</p>
+              <p><b>Phone Number: </b>{{this.PhoneNumber}}</p>
+            </div>
+          </div>
+          {{/each}}
+        {{/if}}
+        <br>
+        <h2>Skills</h2>
+
+        {{#if skills}}
+          {{#each skills}}
+          <p>{{this.Skill}}</p>
+          {{/each}}
+        {{/if}}
+        <br>
+        <h2>Work Experience</h2>
+        {{#if workexp}}
+        <div class=" mx-auto w-100 card text-black ">
+          {{#each workexp}}
+          <div class="card bg-light shadow p-3 mb-5 rounded ">
+              <div class="card-header"><h2>{{lookup ../companyNames @index}}</h2></div>
+              <div class="card-body">
+                <h5 class="card-title">{{this.Position}}</h5>
+                <p class="card-text"><b>Description</b> {{this.DescriptionOfWork}}</p>
+                <p class="card-text"><b>Type of Employment</b> {{this.EmploymentType}}</p>
+                <p class="card-text"><b>Months worked</b> {{this.NumberOfMonthsWorked}}</p>
+              </div>
+            </div>
+          {{/each}}
+        {{/if}}
+        </div>
+        <h2 class="text-center">Education Experience</h2>
+        {{#if eduexp}}
+        <div class=" mx-auto w-100 card text-black ">
+          {{#each eduexp}}
+          <div class="card bg-light shadow p-3 mb-5 rounded ">
+              <div class="card-header"><h2>{{this.School}}</h2></div>
+              <div class="card-body">
+                <h5 class="card-title">{{this.Degree}}</h5>
+                <p class="card-text"><b>Achievements</b> {{this.Achievements}}</p>
+                <p class="card-text"><b>Start Year</b> {{this.YearStarted}}</p>
+                <p class="card-text"><b>End Year</b> {{this.YearFinished}}</p>
+              </div>
+            </div>
+          {{/each}}
+        {{/if}}
+        </div>
+
+  </div>
+</body>
+</html>

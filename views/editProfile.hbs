@@ -33,7 +33,38 @@
             <label for="phoneNumber">Enter Phone Number: </label>
             <input type="phoneNumber" class="form-control" id="phoneNumber" name="phoneNumber" required>
           </div>
-          <a href="./register"><button type="submit" class="btn btn-dark">Save</button>
+          <h2>Skill</h2>
+          <div class="form-group">
+            <label for="skill">Enter Description of Skill</label>
+            <input type="text" class="form-control" id="skill" name="skill" required>
+          </div>
+          <h2>Education Experience</h2>
+          <div class="form-group">
+            <label for="school">Enter School</label>
+            <input type="text" class="form-control" id="school" name="school" required>
+            <label for="degree">Degree</label>
+            <input type="text" class="form-control" id="degree" name="degree" required>
+            <label for="achievements">Enter Achievements</label>
+            <input type="text" class="form-control" id="achievements" name="achievements">
+            <label for="startingyear">Enter Starting Year</label>
+            <input type="text" class="form-control" id="startingyear" name="startingyear" pattern="[0-9]*"required>
+            <label for="endingyear">Enter Year of Completion (or Expected Year of Completion)</label>
+            <input type="text" class="form-control" id="endingyear" name="endingyear" pattern="[0-9]*"required>
+          </div>
+          <h2>Work Experience</h2>
+          <div class="form-group">
+            <label for="Name">Company Name</label>
+            <input type="text" class="form-control" id="Name" name="Name" required>
+            <label for="position">Enter Position</label>
+            <input type="text" class="form-control" id="position" name="position" required>
+            <label for="employmentType">Enter Employment Type</label>
+            <input type="text" class="form-control" id="employmentType" name="employmentType" required>
+            <label for="workDescription">Enter Work Description</label>
+            <input type="text" class="form-control" id="workDescription" name="workDescription">
+            <label for="monthsWorked">Enter Number of Months Worked</label>
+            <input type="text" class="form-control" id="monthsWorked" name="monthsWorked" pattern="[0-9]*"required>
+          </div>
+          <button type="submit" class="btn btn-dark">Save</button>
         </form>
   </body>
 </html>

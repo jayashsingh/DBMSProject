@@ -4,45 +4,59 @@
     <title>JUTR Jobs</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   </head>
   <body>
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center" style="background-image: url(https://www.technojobs.co.uk/info/sites/www.technojobs.co.uk/files/styles/article_image_large/public/article-images/types-of-office-workers-you-might-work-with.jpg?itok=DUpTfQ6L); background-size: auto;  background-repeat: no-repeat;">
       <h1>Welcome to JUTR Jobs!</h1>
       <p>Search for your next career.</p>
     </div>
 
     <div class="container">
-        <h2>Login here!</h2>
+      {{#if message}}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {{/if}}
+      {{#if failureMessage}}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{failureMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {{/if}}
+        <h1>Login here!</h1>
+        <br>
+        <div class="card bg-light text-black">
         <form class="" action="login_Auth" method="post">
-          <div class="form-group">
-            <label for="Username">Enter username:</label>
+          <div class="form-group p-4">
+            <h4><label for="Username">Enter username:</label></h4>
             <input type="text" class="form-control" id="Username" name="Username" required>
           </div>
-          <div class="form-group">
-            <label for="Password">Enter Password</label>
+          <div class="form-group p-4">
+            <h4><label for="Password">Enter Password: </label></h4>
             <input type="password" class="form-control" id="Password" name="Password"  required>
           </div>
+            </div>
+              <br>
           <button type="submit" class="btn btn-dark">Login</button>
+          <br>
         </form>
 
-        <h3>Dont have an account?</h3>
+        <br>
+        <h5>Dont have an account?</h5>
         <a href="./register"><button class="btn btn-dark">Register here!</button></a>
 
-        {{#if message}}
-          <br><div class="alert alert-success alert-dismissible fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{message}}
-            </div>
-        {{/if}}
-        {{#if failureMessage}}
-          <br><div class="alert alert-danger alert-dismissible fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{failureMessage}}
-          </div>
-        {{/if}}
+
     </div>
   </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>JUTR Jobs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+</head>
+<body>
+  <div class="jumbotron text-center">
+    <h1>Add Education Experience</h1>
+  </div>
+  <div class="container">
+    <h2>Education Experience</h2>
+    <form class="" action="educationEdit" method="post">
+      <div class="form-group">
+        <label for="school">Enter School</label>
+        <input type="text" class="form-control" id="school" name="school" required>
+        <label for="degree">Degree</label>
+        <input type="text" class="form-control" id="degree" name="degree" required>
+        <label for="achievements">Enter Achievements</label>
+        <input type="text" class="form-control" id="achievements" name="achievements">
+        <label for="startingyear">Enter Starting Year</label>
+        <input type="text" class="form-control" id="startingyear" name="startingyear" pattern="[0-9]*"required>
+        <label for="endingyear">Enter Year of Completion (or Expected Year of Completion)</label>
+        <input type="text" class="form-control" id="endingyear" name="endingyear" pattern="[0-9]*"required>
+      </div>
+      <button type="submit" class="btn btn-dark">Save</button>
+      <a class="btn btn-dark" href="./Profile">Back</a>
+    </form>
+    {{#if message}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {{/if}}
+  </div>
+</body>
+</html>

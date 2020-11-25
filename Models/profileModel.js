@@ -10,7 +10,7 @@ const Profile = function Profile(profile) {
   this.LastName = profile.LastName;
   this.Email = profile.Email;
   this.PhoneNumber = profile.PhoneNumber;
-  this.Employed = profile.Emplyed;
+  this.Employed = profile.Employed;
   this.Username = profile.Username;
 };
 

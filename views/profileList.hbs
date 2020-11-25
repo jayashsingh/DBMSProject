@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>JUTR Jobs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+  <script>
+  function textField(that)
+  {
+    document.getElementById("showField").style.display = "block";
+  }
+  </script>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./Main">
+        <img src="/jutr_logo_final.png",alt="poopoo" width="55" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+      </a>
+      <div class="navbar-nav">
+        <a href="./Main" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="./Companys" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-envelope"></i> Companies</a>
+        <a href="./JobListing" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-bars"></i> Job Listings</a>
+        <a href="./profileList" class="nav-item nav-link text-white bg-dark"><i class="fas fa-file"></i> Profiles</a>
+      </div>
+      <div class="navbar-nav ml-auto">
+        <a href="./Profile" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-user"></i>My Profile</a>
+        <a href="./Logout" class="nav-item nav-link text-white bg-dark"><i class='fas fa-sign-out-alt'></i> Logout</a>
+      </div>
+    </nav>
+    <div class="jumbotron text-center text-dark jumbotron-image shadow" style="background-image: url(https://www.technojobs.co.uk/info/sites/www.technojobs.co.uk/files/styles/article_image_large/public/article-images/types-of-office-workers-you-might-work-with.jpg?itok=DUpTfQ6L); background-size: auto;  background-repeat: no-repeat;">
+      <h1>View Profiles!</h1>
+      <p>Search for your next career.</p>
+    </div>
+    {{#if message}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {{/if}}
+    <form class="" action="./profileListing" method="post">
+      <label for="query">Choose a Query Type</label>
+      <select onchange="textField(this);" name="query" id="query">
+        <option id="blank" value="blank" style="diplay: block" value=""></option>
+        <option value="Skill">Skills</option>
+        <option value="Degree">Degree</option>
+        <option value="School">School</option>
+        <option value="Achievements">Academic Achievements</option>
+        <option value="YearStarted">Year School Started</option>
+        <option value="YearFinished">Search School Finished</option>
+        <option value="DescriptionOfWork">Search by Work Experience</option>
+      </select>
+      <div id="showField" style="display:none;">
+        <label for="query">Input Search Field Here: </label>
+        <input type="text" id="query" name="searchQuery">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <br><br>
+      <p><b>Suggested filters: </b>
+        <a href="./hardestWorker" class="btn btn-outline-dark " data-toggle="tooltip" data-placement="top" title="This search computes the workers from each company who have worked longer than the average amount for that company.">Hardest Workers</a>
+        <a href="./specificCompany" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="This is an example search that searches all workers that have worked for Jutr Inc and Starlight!">Worked for JUTR or Starlight</a>
+        <a href="./developer" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="This is an example search that searches all workers that have a 'developer' skill!">Developer</a>
+        <a href="./jutr" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="This is example search that searches all current employees of Jutr Inc.">Jutr Inc. Employess</a>
+        <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+      </script>
+    </p>
+
+  </form>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3">
+      {{#if results}}
+      {{#each results}}
+      <div class="col mb-4">
+        <div class="card bg-light shadow p-3 mb-5 rounded">
+          <div class="card-header"><h2>{{this.FirstName}} {{this.LastName}}</h2></div>
+          <div class="card-body">
+            <h5 class="card-title">Email: {{this.Email}}</h5>
+            <p class="card-text">Phone: {{this.PhoneNumber}}</p>
+          </div>
+          <form class="" action="./viewProfile" method="post">
+            <button type="submit" value="{{this.ProfileID}}" name="profile_ID" id="profile_ID" class="btn btn-dark">View Profile!</button>
+          </form>
+        </div>
+      </div>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+</body>
+</html>

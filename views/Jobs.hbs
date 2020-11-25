@@ -1,59 +1,125 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>JUTR Jobs</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<head>
+  <meta charset="utf-8">
+  <title>JUTR Jobs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+  <script>
+  function textField(that)
+  {
+    document.getElementById("showField").style.display = "block";
+  }
+  </script>
 
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-      <img src="/pic.png",alt="poopoo" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-      JUTR
-    </a>
-    <div class="navbar-nav">
-        <a href="./Main" class="nav-item nav-link text-white bg-dark">Home</a>
-        <a href="./Companys" class="nav-item nav-link text-white bg-dark">Companys</a>
-        <a href="./JobListing" class="nav-item nav-link text-white bg-dark">Job Listings</a>
-    </div>
-    <div class="navbar-nav ml-auto">
-            <a href="./Profile" class="nav-item nav-link text-white bg-dark">My Profile</a>
-        </div>
-    </nav>
-    <form class="" action="./JobListing" method="post">
-      <input type="radio" id="fulltime" name="typeOfWork" value="fulltime">
-      <label for="fulltime">Fulltime</label><br>
-      <input type="radio" id="showAll" name="typeOfWork" value="showAll">
-      <label for="showAll">Show All</label><br>
-      <input type="radio" id="parttime" name="typeOfWork" value="partime">
-      <label for="parttime">Parttime</label><br>
-    </form>
-    <div class="container">
-      <div class="card-columns">
-        {{#if results}}
-          {{#each results}}
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
-            <div class="card bg-info">
-              <div class="card-header"><h2>{{lookup ../companyNames @index}}</h2></div>
-              <div class="card-body">
-                <h5 class="card-title">{{this.EmploymentType}}</h5>
-                <p class="card-text">Field of work: {{this.Description}}</p>
-                <p class="card-text">Location: {{this.PayRange}}</p>
-                <p class="card-text">Phone: {{this.SkillRequirements}}</p>
-                <p class="card-text">Experience Requirements: {{this.ExperienceRequirements}}</p>
-                <p class="card-text">Education Requirements: {{this.EducationRequirements}}</p>
-              </div>
-            </div>
-          {{/each}}
-        {{/if}}
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./Main">
+        <img src="/jutr_logo_final.png",alt="poopoo" width="55" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+      </a>
+      <div class="navbar-nav">
+        <a href="./Main" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="./Companys" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-envelope"></i> Companies</a>
+        <a href="./JobListing" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-bars"></i> Job Listings</a>
+        <a href="./profileList" class="nav-item nav-link text-white bg-dark"><i class="fas fa-file"></i> Profiles</a>
       </div>
+      <div class="navbar-nav ml-auto">
+        <a href="./Profile" class="nav-item nav-link text-white bg-dark"><i class="fa fa-fw fa-user"></i>My Profile</a>
+        <a href="./Logout" class="nav-item nav-link text-white bg-dark"><i class='fas fa-sign-out-alt'></i> Logout</a>
+      </div>
+    </nav>
+    <div class="jumbotron text-center text-dark jumbotron-image shadow" style="background-image: url(https://www.technojobs.co.uk/info/sites/www.technojobs.co.uk/files/styles/article_image_large/public/article-images/types-of-office-workers-you-might-work-with.jpg?itok=DUpTfQ6L); background-size: auto;  background-repeat: no-repeat;">
+      <h1>Search Job Listings!</h1>
+      <p>Search for your next career.</p>
     </div>
-  </body>
+    {{#if message}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {{/if}}
+
+    {{#if successmessage}}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{successmessage}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {{/if}}
+    <form class="float-left" action="./JobListing" method="post">
+      <label for="query">Choose a Query Type</label>
+      <select onchange="textField(this);" name="query" id="query">
+        <option id="blank" value="blank" style="diplay: block" value=""></option>
+        <option value="CompanyName">Company Name</option>
+        <option value="PayRange">Annual Salary</option>
+        <option value="SkillRequirements">Skill Requirements</option>
+        <option value="ExperienceRequirements">Experience Requirements</option>
+        <option value="EducationRequirements">Education Requirements</option>
+      </select>
+      <div id="showField" style="display:none;">
+        <label for="query">Input Search Field Here: </label>
+        <input type="text" id="query" name="searchQuery">
+      </div>
+      <p>Type of work</p>
+      <input type="radio" value="showAll" name="typeOfWork" checked>
+      <label for="ShowAll">Show all</label>
+      <input type="radio" value="Fulltime" name="typeOfWork">
+      <label for="fullTime">Full Time</label>
+      <input type="radio" value="Parttime" name="typeOfWork">
+      <label for="partTime">Part time</label>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <br><br>
+      <p><b>Suggested searches: </b>
+        <a href="./firstJob" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="No skills, no education, no work experience required!">First Job</a>
+        <a href="./aboveAverage" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="This shows all job listings that have higher than the average salary for all job listings on the site!">Above average salary</a>
+        <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+      </script>
+    </p>
+
+  </form>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2">
+
+      {{#if results}}
+      {{#each results}}
+      <div class="col mb-4">
+        <div class="card bg-light shadow p-3 mb-5 rounded">
+          <div class="card-header"><h2>{{lookup ../companyNames @index}}</h2></div>
+          <div class="card-body">
+            <h5 class="card-title">{{this.Position}}</h5>
+            <p class="card-text">{{this.EmploymentType}}</p>
+            <p class="card-text">Description: {{this.Description}}</p>
+            <p class="card-text">Annual Salary: ${{this.PayRange}}</p>
+            <p class="card-text">Skill Requirements: {{this.SkillRequirements}}</p>
+            <p class="card-text">Experience Requirements: {{this.ExperienceRequirements}}</p>
+            <p class="card-text">Education Requirements: {{this.EducationRequirements}}</p>
+            <form class="" action="./apply" method="post">
+              <button type="submit" value="{{lookup ../companyNames @index}}^{{this.Position}}" name="companyName" id="companyName" class="btn btn-secondary">Apply Here!</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      {{/if}}
+
+    </div>
+  </div>
+
+</body>
 </html>
