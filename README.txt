@@ -11,3 +11,5 @@ To run our web project please follow the following steps:
 5. Server will be started to port 3000, if u have something else occupying the port, go into server.js, go to LINE 785, and change 3000 to a port of your choosing
 6. Once the server is started, you will see a successful server started message in the console, as well as a successful database connection message
 7. If you see both of these, you are ready to go to JUTR Jobs, go to localhost:3000 (OR THE PORT YOU CHOSE).
+
+Disclaimer: If you get an error in your console for database connection, please email jayashsingh@ontariotechu.net as we've had issues with break-ins on our database due to it being hosted on Amazon RDS
