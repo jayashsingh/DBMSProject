@@ -4,6 +4,7 @@
     <title>JUTR Jobs</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- importing webpacks for bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -14,6 +15,7 @@
       <h1>Profile Information</h1>
       <p>Jayash is cute</p>
     </div>
+      <!-- creating text fields for editing profile information  -->
     <div class="container">
         <h2>Profile</h2>
         <form class="" action="profileEdit" method="post">
@@ -33,11 +35,13 @@
             <label for="phoneNumber">Enter Phone Number: </label>
             <input type="phoneNumber" class="form-control" id="phoneNumber" name="phoneNumber" required>
           </div>
+           <!-- creating text fields for editing skill information  -->
           <h2>Skill</h2>
           <div class="form-group">
             <label for="skill">Enter Description of Skill</label>
             <input type="text" class="form-control" id="skill" name="skill" required>
           </div>
+           <!-- creating text fields for editing education experience  -->
           <h2>Education Experience</h2>
           <div class="form-group">
             <label for="school">Enter School</label>
@@ -51,6 +55,7 @@
             <label for="endingyear">Enter Year of Completion (or Expected Year of Completion)</label>
             <input type="text" class="form-control" id="endingyear" name="endingyear" pattern="[0-9]*"required>
           </div>
+            <!-- creating text fields for editing work experience  -->
           <h2>Work Experience</h2>
           <div class="form-group">
             <label for="Name">Company Name</label>

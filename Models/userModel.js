@@ -1,3 +1,7 @@
+//User Model File
+
+
+//Dependencies
 const sql = require("./db.js");
 var path = require('path');
 const bcrypt = require("bcrypt");
@@ -9,9 +13,9 @@ const User = function User(user) {
   this.Password = user.Password;
 };
 
+//User crreation function
 User.create = (newUser, result) => {
-  //Check if user exists already
-      console.log("userregister: "+newUser.Username);
+  //SQL Query to insert new users login info
       sql.query("INSERT INTO LoginInfo SET ?", newUser, (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -25,8 +29,9 @@ User.create = (newUser, result) => {
 
 };
 
+//User Login function
 User.login = (user, result) => {
-  console.log("UseR:" + user.Username)
+  //Checking if that username exists in DB
   sql.query("SELECT * FROM LoginInfo WHERE Username = ?",user.Username, (err, results) =>{
     if (err) {
       console.log("error: ", err);
@@ -34,17 +39,16 @@ User.login = (user, result) => {
       return;
     }
     else {
-      console.log("AAAAAAA"+results[0].Password+"   "+user.Password);
-      console.log("BBBBb"+(bcrypt.compare(user.Password, results[0].Password)));
+      //Returned failed authentication if not found
       if(results.length<1)
       {
-        console.log("it ran through here");
         result(null, 'failed');
         return;
       }
+      //Comparing the passowrd inputted, and hashed password in db
       else {
         bcrypt.compare(user.Password, results[0].Password,(error,dataa)=>{
-          console.log("ASDASD"+dataa)
+          //If they match, create and return the token
           if(dataa)
           {
             console.log("it ran through here too");
@@ -52,6 +56,7 @@ User.login = (user, result) => {
             console.log("tokenaazzz "+userToken);
             result(null, { token: userToken});
           }
+          //If they dont match, fail authentication
           else {
             console.log("it ran through 123123asdasdfsagds");
             result(null, 'failed');
@@ -64,4 +69,5 @@ User.login = (user, result) => {
 
 }
 
+//Export so the user model can be used in other files
 module.exports = User;

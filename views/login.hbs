@@ -4,6 +4,7 @@
     <title>JUTR Jobs</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- importing webpacks for bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -16,7 +17,7 @@
       <h1>Welcome to JUTR Jobs!</h1>
       <p>Search for your next career.</p>
     </div>
-
+    <!-- Using handlebars to get and alert a message  -->
     <div class="container">
       {{#if message}}
       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -26,6 +27,7 @@
         </button>
       </div>
       {{/if}}
+      <!-- Using handlebars to get and alert a failure message  -->
       {{#if failureMessage}}
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{failureMessage}}
@@ -36,6 +38,7 @@
       {{/if}}
         <h1>Login here!</h1>
         <br>
+        <!-- Using bootstrap to create the login interface with cards  -->
         <div class="card bg-light text-black">
         <form class="" action="login_Auth" method="post">
           <div class="form-group p-4">

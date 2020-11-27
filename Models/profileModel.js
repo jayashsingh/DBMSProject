@@ -1,3 +1,5 @@
+//Model for proile
+
 const sql = require("./db.js");
 var path = require('path');
 const bcrypt = require("bcrypt");
@@ -14,8 +16,9 @@ const Profile = function Profile(profile) {
   this.Username = profile.Username;
 };
 
+//Creation function
 Profile.create = (newProfile, result) => {
-  //Check if user exists already
+  //Inserting new profile into the db
       sql.query("INSERT INTO Profile SET ?", newProfile, (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -29,4 +32,5 @@ Profile.create = (newProfile, result) => {
 
 };
 
+//Exporting so this model can be used in other files
 module.exports = Profile;

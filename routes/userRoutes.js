@@ -1,7 +1,8 @@
+//Externally defined routes for user related routes
 module.exports = app => {
   const users = require("../controllers/userController.js");
 
-  // Create a new Customer
+  // Create a new user
   app.post("/LoginInfo", users.create);
 
   //Login

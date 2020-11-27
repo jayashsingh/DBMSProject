@@ -1,3 +1,4 @@
+//Config file holding connection details
 module.exports = {
   HOST: "dbms-project.cvwl50l2zoqx.ca-central-1.rds.amazonaws.com",
   USER: "admin",

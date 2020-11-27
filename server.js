@@ -1,4 +1,4 @@
-//Packages
+//Packages and dependencies
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -34,6 +34,8 @@ hbs.registerHelper('ifCond', function(v1, v2, options) {
 });
 
 //Internal routes
+
+//Route route, checking if user is logged in render main page, if not render login page
 app.get('/', function(request, response) {
   if(request.cookies.user)
   {
@@ -43,36 +45,47 @@ app.get('/', function(request, response) {
     response.render("login");
   }
 });
+//Login route
 app.get('/login', function(request, response) {
   response.render("login");
 });
+//Register route
 app.get('/register', function(request, response) {
   response.render("register",{layout:false});
 });
+//Main page route
 app.get('/Main', checkToken , (request, response)=> {
   response.render("Main",{layout:false});
 });
+//Profile creation route
 app.get('/editProfile', checkToken , (request, response)=> {
   response.render("editProfile",{layout:false});
 });
+//Adding skill route
 app.get('/addSkill', function(request, response) {
   response.render("addSkill",{layout:false});
 });
+//Adding education route
 app.get('/addEducation', function(request, response) {
   response.render("addEducation",{layout:false});
 });
+//Adding work route
 app.get('/addWork', function(request, response) {
   response.render("addWork",{layout:false});
 });
+//Update profile route
 app.get('/updateProfile', function(request, response) {
+  //Sql query to fill html form with existing info for the profile
   sql.query("SELECT * From Profile WHERE Username=?",jwt.decode(request.cookies.user).Username,(err,data)=>{
       response.render("updateProfile",{layout:false,fname:data[0].FirstName, lname:data[0].LastName,email:data[0].Email,pnum:data[0].PhoneNumber});
   })
 
 
 });
+//Profile Page route
 app.get('/Profile', checkToken , (request, response)=> {
   let names = new Array();
+  //sql queries to get all the info from the db that displays on profile page
   sql.query("SELECT * FROM Profile WHERE Username =?",jwt.decode(request.cookies.user).Username, (err, data)=>{
     console.log("Step 1"+data);
     sql.query("SELECT * FROM Skills WHERE ProfileID =?",data[0].ProfileID,(errr,dataa)=>{
@@ -81,6 +94,7 @@ app.get('/Profile', checkToken , (request, response)=> {
         console.log("Step 3"+dataaa);
         sql.query("SELECT * FROM WorkExperience WHERE ProfileID =?",data[0].ProfileID, (errrrr,dataaaa)=>{
           console.log("Step 4"+dataaaa);
+          //Promise to make sure this for each loop is committed synchronously
           var foreachPromise1 = new Promise((resolve,reject)=>{
             dataaaa.forEach((item,idx) => {
               sql.query("SELECT Name FROM Company WHERE CompanyID =?",item.CompanyID, (error, dataaaaa)=>{
@@ -104,6 +118,7 @@ app.get('/Profile', checkToken , (request, response)=> {
     })
   });
 });
+//Company page route
 app.get('/Companys', checkToken , (request, response)=> {
   sql.query("SELECT * FROM Company",(err,data)=>{
     console.log("I come first");
@@ -119,11 +134,13 @@ app.get('/Companys', checkToken , (request, response)=> {
   })
 
 });
+//Suggested search route, executes view 9
 app.get("/ITWorkfield",checkToken,(req,res)=>{
   sql.query("SELECT * FROM VIEW9",(err,data)=>{
     res.render("Companys",{layout:false,results:data});
   })
 })
+//Profiles page route
 app.get('/profileList', checkToken , (request, response)=> {
   sql.query("SELECT * FROM Profile",(err,data)=>{
     console.log("I come first");
@@ -140,30 +157,31 @@ app.get('/profileList', checkToken , (request, response)=> {
 
 });
 
+//Suggested search route that executes view 3
 app.get('/hardestWorker',checkToken,(req,res)=>{
   sql.query("SELECT * FROM VIEW3",(err,data)=>{
     res.render("profileList",{layout:false, results: data});
   })
 })
-
+//Suggested search route that executes view 5
 app.get('/specificCompany',checkToken,(req,res)=>{
   sql.query("SELECT * FROM VIEW5",(err,data)=>{
     res.render("profileList",{layout:false, results: data});
   })
 })
-
+//Suggested search route that executes view 7
 app.get('/developer',checkToken,(req,res)=>{
   sql.query("SELECT * FROM VIEW7",(err,data)=>{
     res.render("profileList",{layout:false, results: data});
   })
 })
-
+//Suggested search route that executes view 10
 app.get('/jutr',checkToken,(req,res)=>{
   sql.query("SELECT * FROM VIEW10",(err,data)=>{
     res.render("profileList",{layout:false, results: data});
   })
 })
-
+//Viewing other persons profile route following similar logic from above
 app.post('/viewProfile',checkToken,(req,res)=>{
   let names = new Array();
   console.log("PROFILE ID FROM PROFILES: "+req.body.profile_ID)
@@ -219,6 +237,7 @@ app.post('/viewProfile',checkToken,(req,res)=>{
   });
 })
 
+//Job Listing page route
 app.get('/JobListing', checkToken , (request, response)=> {
   sql.query("SELECT * FROM JobListing",(err,data)=>{
     console.log("I come first");
@@ -250,34 +269,39 @@ app.get('/JobListing', checkToken , (request, response)=> {
   })
 });
 
+//Apply button route
 app.post('/apply',checkToken,(req,res)=>{
+  //getting company name and position being applied for
   let params = req.body.companyName.split('^');
-  console.log("Company Name: "+params[0]);
-  console.log("Position from job listing: "+params[1]);
-  console.log("Username"+jwt.decode(req.cookies.user).Username);
   var companyName = params[0];
   var position = params[1];
   var username = jwt.decode(req.cookies.user).Username;
+  //querying db for the email of the company
   sql.query("SELECT Email FROM Company WHERE Name=?",companyName,(err, data) =>
   {
     var recipientEmail = data[0].Email;
+    //querying db for users information who is applying
     sql.query("SELECT * FROM Profile WHERE Username=?",username,(error,dataa)=>{
       var name=dataa[0].FirstName + " " + dataa[0].LastName;
+      //using external Restful API to send a mail using the information queried
       mailer(recipientEmail,name,position,companyName);
+      //Rending back to job listing with success message
       res.render("Jobs",{layout:false,successmessage:"Application sent!"})
     })
   }
   )
 })
-
+//Mailer function that utilizes sendgrid external api
 function mailer(recipientEmail, name, position, company)
 {
+  //JSON object passed by the api
   const msg = {
     to: recipientEmail, // Change to your recipient (user email)
     from: 'hijayash@gmail.com', // Change to your verified sender
     subject: 'Job Application For '+position, // (say job position)
     text: 'Hi my name is '+ name + ', and I am interested for the '+position+ ' position at '+company+"." // (put defualt message)
   }
+  //Sending email
   sgMail
     .send(msg)
     .then(() => {
@@ -288,12 +312,13 @@ function mailer(recipientEmail, name, position, company)
     })
 }
 
-
+//Suggested search route that executes view 6
 app.get('/firstJob',checkToken,(req,res)=>{
   sql.query("SELECT * FROM VIEW6",(err,data)=>{
     let names = new Array();
     var foreachPromise = new Promise((resolve,reject)=>{
       data.forEach((item,idx) => {
+        //Getting company name for each joblisting found
         sql.query("SELECT Name FROM Company WHERE CompanyID =?",item.companyid, (error, dataa)=>{
         names.push(dataa[0].Name);
 
@@ -310,11 +335,13 @@ app.get('/firstJob',checkToken,(req,res)=>{
     });
   })
 })
+//Suggested search route that executes view 2
 app.get('/aboveAverage',checkToken,(req,res)=>{
   sql.query("SELECT * FROM VIEW2",(err,data)=>{
     let names = new Array();
     var foreachPromise = new Promise((resolve,reject)=>{
       data.forEach((item,idx) => {
+        //Getting company name for each joblisting found
         sql.query("SELECT Name FROM Company WHERE CompanyID =?",item.companyid, (error, dataa)=>{
         names.push(dataa[0].Name);
 
@@ -331,8 +358,9 @@ app.get('/aboveAverage',checkToken,(req,res)=>{
     });
   })
 })
-
+//Route for the job lsiting custom searching
 app.post('/JobListing',checkToken,(req,res)=>{
+  //Searching by company name, the rest of this function follows the general logic as this first if statement
   if(req.body.query=='CompanyName')
   {
     sql.query("SELECT CompanyID, Name FROM Company WHERE Name LIKE '%" +req.body.searchQuery+ "%'",(err,data)=>{
@@ -345,8 +373,10 @@ app.post('/JobListing',checkToken,(req,res)=>{
         var compID=data[0].CompanyID;
         var name=data[0].Name;
         let names=new Array();
+        //Type of work radio button handling
         if(req.body.typeOfWork=='showAll')
         {
+          //Querying db ignoring typeofwork
           sql.query("SELECT * FROM JobListing WHERE JobListing.companyid="+data[0].CompanyID,(err,dataa)=>{
           for(var i=0;i<dataa.length;i++)
           {
@@ -357,6 +387,7 @@ app.post('/JobListing',checkToken,(req,res)=>{
         }
         else
         {
+          //Querying db taking into account the type of work option
           sql.query("SELECT * FROM JobListing WHERE JobListing.companyid="+data[0].CompanyID+" AND JobListing.EmploymentType='"+req.body.typeOfWork+"'",(err,dataa)=>{
             for(var i=0;i<dataa.length;i++)
             {
@@ -368,6 +399,7 @@ app.post('/JobListing',checkToken,(req,res)=>{
       }
     })
   }
+  //Searching by pay range
   else if(req.body.query=='PayRange')
   {
     let names=new Array();
@@ -597,6 +629,7 @@ app.post('/JobListing',checkToken,(req,res)=>{
   }
 })
 
+//Route for custom searching on company listing page, follows the same logic as above adjusted for company
 app.post('/CompanyListing',checkToken,(req,res)=>
 {
   if(req.body.query=='Name')
@@ -633,6 +666,7 @@ app.post('/CompanyListing',checkToken,(req,res)=>
   }
 })
 
+//Route for custom searching on profile listing pages, following same logic as above
 app.post('/profileListing',checkToken,(req,res)=>
 {
   console.log("Step 1")
@@ -741,6 +775,7 @@ app.post('/profileListing',checkToken,(req,res)=>
     res.redirect("/profileList");
   }
 })
+//Logout route
 app.get('/Logout',(req,res)=>{
   res.clearCookie('user',{maxAge:3600000,httpOnly:true})
   res.render("login",{layout:false,message:'Logout Successful!'})

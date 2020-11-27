@@ -1,27 +1,35 @@
+//File acting as the controller for profile objects
+
+//Importing dependecies (model,connect,password encryption, web token)
 const Profile = require("../models/profileModel.js");
 const sql = require("../models/db.js")
 const bcrypt = require("bcrypt");
 const jwt =require("jsonwebtoken");
 
+//Exporting add skill function
 exports.addSkill = (req, res)=>{
+  //If the form submition is empty
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
   }
+  //Finding profile ID of current user
   sql.query("SELECT ProfileID FROM Profile WHERE Username=?",jwt.decode(req.cookies.user).Username, (err, data)=>{
     var profID = data[0].ProfileID;
-    console.log("Profile ID "+profID);
-    console.log("Skill "+req.body.skill);
+    //Querying database to see if the inputted skill already exists for the user logged in
     sql.query("SELECT * FROM Skills WHERE ProfileID =? AND Skill=?",[profID, req.body.skill], (error,dataa)=>{
       if(dataa.length>0)
       {
+        //Rending page with handlebars
         res.render("addSkill",{layout:false, message:'You already have that skill in your profile!'})
       }
       else {
+        //Inserting into database
         sql.query("INSERT INTO Skills (profileID, Skill) VALUES (?,?)",[profID,req.body.skill], (errorr,dataaa)=>{
           if(errorr)throw errorr;
           console.log("Stored skill")
+          //Re-routing to profile route defined in server.js
           res.redirect("/Profile")
         })
       }
@@ -29,6 +37,7 @@ exports.addSkill = (req, res)=>{
   })
 }
 
+//Add Education function that follows the same logic as above
 exports.addEducation = (req,res)=>{
   if (!req.body) {
     res.status(400).send({
@@ -53,6 +62,8 @@ exports.addEducation = (req,res)=>{
     })
   })
 }
+
+//Add work experience function that follows the same general logic as above
 exports.addWork = (req,res)=>{
   if (!req.body) {
     res.status(400).send({
@@ -79,7 +90,10 @@ exports.addWork = (req,res)=>{
     })
   })
 }
+
+//Profile creation function
 exports.edit = (req, res) => {
+  //Same logic as above
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -91,6 +105,7 @@ exports.edit = (req, res) => {
 
     }
     else {
+      //Calculating id of new user
       sql.query("SELECT MAX(ProfileID) AS MAXID FROM Profile",(err,results)=>{
         if(results.length>0)
         {
@@ -108,6 +123,7 @@ exports.edit = (req, res) => {
         });
         console.log("Created profile")
 
+        //Calling create function from profile model
         Profile.create(profile, (err, data) => {
           if (err)
             res.status(500).send({
@@ -115,6 +131,7 @@ exports.edit = (req, res) => {
                 err.message || "Some error occurred while creating the Profile."
             });
           else{
+            //Storing skills, education experience, and work experience along with the new profile that was created
             sql.query("INSERT INTO Skills (profileID, Skill) VALUES (?,?)",[ID,req.body.skill], (errorr,dataaa)=>{
               if(errorr)throw errorr;
               console.log("Stored skill")
@@ -131,6 +148,7 @@ exports.edit = (req, res) => {
               })
             })
           console.log("Data was stored");
+          //Re-routing to profile route defined in server.js
           res.redirect("/Profile");
         }
         });
@@ -140,6 +158,7 @@ exports.edit = (req, res) => {
 
 }
 
+//Updating profile info function, following same logic as above
 exports.update = (req,res)=>{
   if (!req.body) {
     res.status(400).send({
@@ -149,6 +168,7 @@ exports.update = (req,res)=>{
 
   sql.query("SELECT ProfileID FROM Profile WHERE Username=?",jwt.decode(req.cookies.user).Username, (err, data)=>{
     var profID = data[0].ProfileID;
+    //SQL statement for updating profile information
     sql.query("UPDATE Profile SET FirstName =?, LastName=?, Email=?,PhoneNumber=? WHERE ProfileId=?",[req.body.FirstName,req.body.LastName,req.body.Email,req.body.phoneNumber,profID],(error,dataa)=>{
       if(error)throw error;
       res.redirect("./Profile");

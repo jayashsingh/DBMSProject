@@ -4,6 +4,7 @@
   <title>JUTR Jobs</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- importing webpacks for bootstrap 4 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -13,6 +14,7 @@
   <div class="jumbotron text-center">
     <h1>Add Education Experience</h1>
   </div>
+    <!-- creating textfields for editing education  -->
   <div class="container">
     <h2>Education Experience</h2>
     <form class="" action="educationEdit" method="post">
@@ -31,6 +33,7 @@
       <button type="submit" class="btn btn-dark">Save</button>
       <a class="btn btn-dark" href="./Profile">Back</a>
     </form>
+    <!-- Using handlebars to get and alert a message  -->
     {{#if message}}
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       {{message}}
